@@ -67,5 +67,5 @@ jobs:
     
     - name: sync files to s3
       run: |
-      aws s3 sync dist s3://sell-my-stuff-nithish --delete
-      aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION }} --paths "/*"
+        aws s3 sync dist s3://sell-my-stuff-nithish --delete
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.DISTRIBUTION }} --paths "/*"
