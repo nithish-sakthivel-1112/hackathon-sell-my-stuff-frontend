@@ -1,4 +1,4 @@
-name: List S3 buckets
+name: Deploying the Front-end-using-terraform
 
 on:
   push:
@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  list-s3:
+  terraform:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,7 +22,20 @@ jobs:
       with:
         role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
         aws-region: eu-central-1
+    
+    -  name: Install terraform
+       uses: hashicorp/setup-terraform@v2
+       with:
+         terraform_version:1.12.2
 
-    - name: List S3 buckets
-      run: |
-        aws s3 ls
+    - name: terraform init
+      run: terraform init
+      working-directory: ./terraform
+
+    - name: terraform plan
+      run: terraform plan
+      working-directory: ./terraform
+
+    - name: terraform apply
+      run: terraform apply -auto-approve
+      working-directory: ./terraform
