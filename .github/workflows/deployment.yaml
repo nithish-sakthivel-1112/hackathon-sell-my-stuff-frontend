@@ -12,9 +12,7 @@ permissions:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    needs: npm_build
-    
-
+  
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
