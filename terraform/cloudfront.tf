@@ -17,7 +17,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   default_root_object = "index.html"
   default_cache_behavior {
     allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT", "FETCH"]
-    cached_methods   = ["GET", "HEAD", "DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT", "FETCH"]
+    cached_methods   = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT", "FETCH"]
     target_origin_id = var.s3_bucket_name
 
     forwarded_values {
