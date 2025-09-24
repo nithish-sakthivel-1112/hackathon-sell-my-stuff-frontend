@@ -1,16 +1,15 @@
-resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
-  comment = "Origin Access Identity for static website"
-
+resource "aws_cloudfront_origin_access_control" "s3_bucket_frontend_oac" {
+  name                              = "s3_bucket_frontend_oac"
+  origin_access_control_origin_type = "s3"
+  signing_behavior                  = "always"
+  signing_protocol                  = "sigv4"
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
   origin {
-    domain_name = aws_s3_bucket.hosting_bucket.bucket_regional_domain_name
-    origin_id   = var.s3_bucket_name
-
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.origin_access_identity.cloudfront_access_identity_path
-    }
+    domain_name              = aws_s3_bucket.hosting_bucket.bucket_regional_domain_name
+    origin_id                = var.s3_bucket_name
+    origin_access_control_id = aws_cloudfront_origin_access_control.s3_bucket_frontend_oac.id
   }
   enabled             = true
   is_ipv6_enabled     = true
