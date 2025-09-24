@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "origin_bucket_policy" {
     ]
 
     resources = [
-      "${aws_s3_bucket.frontend_hosting.arn}/*",
+      "${aws_s3_bucket.hosting_bucket.arn}/*",
     ]
 
     condition {
